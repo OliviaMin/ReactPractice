@@ -3,6 +3,7 @@ import Context from './Context'
 import Table from 'react-bootstrap/Table'
 import coffee from './coffee.jpg'
 import dining from './dining.jpg'
+import Context from "./Context";
 import convertible from './Covertible bed(kids).jpg'
 import sofa from './L shape sofa.jpg'
 import desk from './mocka_marlow_desk_3_.jpg'
@@ -11,6 +12,7 @@ import { useHistory } from "react-router-dom";
 
 const Products=()=>{
   const history = useHistory();
+    const { setUser } = useContext(Context);
 
     const [products, setProducts]= useState([
         { id:101,name: "Coffee Desk",description:"Coffee Desk for Kids", price: 10, quantity:0,image:<img src={coffee}/> },
@@ -61,17 +63,20 @@ const Products=()=>{
         if(localStorage.getItem("username")===""){
           window.alert("Please Login to CheckOut!")          
         }
-        // else{
-        //   console.log(products)
-        //   console.log(user[0])
-        //   console.log(user)
-        // }
+     else {
+      window.alert("Proceeding To Payment....");
+    }
 
       }
 
       const handleLogout=()=>{
         localStorage.setItem("username",""),
         localStorage.setItem("password",""),
+          setUser({
+      username: "",
+      password: "",
+      email: ""
+    });
         history.push("/Products");
 
      
