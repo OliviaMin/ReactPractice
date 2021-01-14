@@ -24,6 +24,16 @@ const Products=()=>{
       ]);
 
       const result=products.filter(p=>p.quantity>0)
+      const [searchTerm, setSearchTerm] = useState("");
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const searchresults = !searchTerm
+    ? products
+    : products.filter(pd =>
+        pd.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+      );
         
       const [total,setTotal]=useState(0)
       const { user} = useContext(Context);
@@ -86,6 +96,12 @@ const Products=()=>{
       return(
      
       <div>
+         <input type="text"
+       placeholder="Search" 
+       className="mr-sm-2"
+       value={searchTerm}
+       onChange={handleChange}
+       />
       {localStorage.getItem("username")===""?
       <div className="w3-container w3-content w3-center w3-padding-24" style={{maxwidth:"00px"}} id="band">
       <h2 className="w3-wide">Browse Products</h2>
@@ -110,8 +126,8 @@ const Products=()=>{
         </tr>
       </thead>
       <tbody>
-      {products.map((p)=>
-        <tr key={p.id}>
+      {searchresults.map((p) => (
+            <tr key={p.id}>
         <td>{p.id}</td>
         <td>{p.image}</td>
         <td>{p.name}</td>
