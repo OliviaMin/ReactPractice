@@ -2,9 +2,10 @@ module.exports=(error,req,res,next)=>{
 const status=error.statusCode || 500;
 const message=error.message;
 const data=error.data;
-const Validation=error.Validation;
+const validation=error.validation;
 res.status(status).json({
     message,
-    data,Validation
+    data,
+    validation
 });
 };
